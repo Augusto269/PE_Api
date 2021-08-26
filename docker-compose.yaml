@@ -1,0 +1,37 @@
+version: '3.8'
+
+services: 
+  mysqldb:
+    image: mysql
+    env_file: ./.env
+    environment:
+      MYSQL_ROOT_PASSWORD: $MYSQL_ROOT_PASSWORD
+      MYSQL_DATABASE: $MYSQL_DATABASE
+    ports:
+      - $MYSQL_LOCAL_PORT:$MYSQL_LOCAL_PORT
+    volumes: 
+      - ./mysql-data:/var/lib/mysql
+      - ./mysql-init-files:/docker-entrypoint-initdb.d
+  mongodb:
+      image: 'mongo'
+      env_file: ./.env
+      volumes:
+        - ./mongo-data:/data/db
+      ports:
+        - $MONGO_DB_PORT:$MONGO_DB_PORT
+      environment: 
+        MONGO_DB_USER: $MONGO_DB_USER
+        MONGO_DB_PASSWORD: $MONGO_DB_USER
+  app:
+    build:
+      context: .
+      dockerfile: ./Dockerfile
+    image: node-mysql-app
+    depends_on:
+      - mysqldb
+    stdin_open: true
+    tty: true
+
+volumes: 
+  db-config:
+  db-data:
