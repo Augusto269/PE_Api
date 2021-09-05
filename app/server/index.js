@@ -33,7 +33,6 @@ app.use((req, res, next) => {
 });
 
 app.use(require('../router'));
-console.log(app)
 app.use((req, res, next) => {
 	logger.log('the url you are trying to reach is not hosted on our server', 'error');
 	const err = new Error('Not Found');
