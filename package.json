@@ -2,10 +2,11 @@
   "name": "ilrn",
   "version": "1.0.0",
   "description": "this is a back end project structure example",
-  "main": "server.js",
+  "main": "app.js",
+
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "node bin/www.js"
+    "start": "nodemon app.js"
   },
   "engines": {
     "node": "8.11.0",
@@ -33,7 +34,6 @@
     "lodash": "^4.17.21",
     "method-override": "^3.0.0",
     "nodemailer": "^6.4.16",
-    "nodemon": "^1.18.4",
     "pg": "^7.5.0",
     "pg-hstore": "^2.3.2",
     "sendgrid": "^5.2.3",
@@ -47,6 +47,7 @@
     "winston-daily-rotate-file": "^3.3.3"
   },
   "devDependencies": {
+    "nodemon": "^1.0.0",
     "eslint": "^5.3.0",
     "eslint-config-airbnb-base": "^13.1.0",
     "eslint-config-prettier": "^3.1.0",

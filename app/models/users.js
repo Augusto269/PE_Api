@@ -3,7 +3,7 @@
 module.exports = (sequelize, DataTypes) => {
 	const Users = sequelize.define('Users', {
 		id: {
-			type: DataTypes.INTEGER(11),
+			type: DataTypes.STRING,
 			allowNull: false,
 			primaryKey: true,
 			autoIncrement: true,
@@ -41,8 +41,6 @@ module.exports = (sequelize, DataTypes) => {
 		},
 
 	}, {});
-	Users.associate = function (models) {
-		});
-	};
+
 	return Users;
 };

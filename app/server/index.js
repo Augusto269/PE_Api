@@ -14,7 +14,6 @@ app.use(require('method-override')());
 
 app.use(compression());
 app.use(cors());
-const swagger = require('../utils/swagger');
 
 
 process.on('SIGINT', () => {
@@ -25,7 +24,6 @@ process.on('SIGINT', () => {
 app.set('db', require('../models/index.js'));
 
 app.set('port', process.env.DEV_APP_PORT);
-app.use('/api/docs', swagger.router);
 
 app.use((req, res, next) => {
 	req.identifier = uuid();
@@ -35,7 +33,7 @@ app.use((req, res, next) => {
 });
 
 app.use(require('../router'));
-
+console.log(app)
 app.use((req, res, next) => {
 	logger.log('the url you are trying to reach is not hosted on our server', 'error');
 	const err = new Error('Not Found');

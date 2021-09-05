@@ -6,8 +6,8 @@
  */
 
 const http = require('http');
-const app = require('../server/index');
-const Logger = require('../utils/logger');
+const app = require('./app/server/index');
+const Logger = require('./app/utils/logger');
 
 const logger = new Logger();
 
@@ -86,7 +86,7 @@ function onListening() {
 /**
  * Listen on provided port, on all network interfaces.
  */
-
+console.log(port)
 server.listen(port);
 server.on('error', onError);
 server.on('listening', onListening);

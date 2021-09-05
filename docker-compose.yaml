@@ -12,6 +12,9 @@ services:
     volumes: 
       - ./mysql-data:/var/lib/mysql
       - ./mysql-init-files:/docker-entrypoint-initdb.d
+    logging: 
+      driver: none
+
   mongodb:
       image: 'mongo'
       env_file: ./.env
@@ -22,15 +25,22 @@ services:
       environment: 
         MONGO_DB_USER: $MONGO_DB_USER
         MONGO_DB_PASSWORD: $MONGO_DB_USER
+      logging: 
+          driver: none
   app:
+    restart: always
     build:
       context: .
       dockerfile: ./Dockerfile
-    image: node-mysql-app
-    depends_on:
-      - mysqldb
+    ports:
+      - "3000:3000"
     stdin_open: true
+    links:
+      - mysqldb
+      - mongodb
     tty: true
+    volumes: 
+      - .:/app 
 
 volumes: 
   db-config:
