@@ -1,19 +1,17 @@
 version: '3.8'
 
 services: 
-  mysqldb:
-    image: mysql
-    env_file: ./.env
-    environment:
-      MYSQL_ROOT_PASSWORD: $MYSQL_ROOT_PASSWORD
-      MYSQL_DATABASE: $MYSQL_DATABASE
+  postgresql:
+    container_name: postgresql
+    image: "postgres:12"
     ports:
-      - "3306:3306"
-    volumes: 
-      - ./mysql-data:/var/lib/mysql
-      - ./mysql-init-files:/docker-entrypoint-initdb.d
-    logging: 
-      driver: none
+      - "5432:5432"
+    environment: 
+      - POSTGRES_USER=root
+      - POSTGRES_PASSWORD=12345
+      - POSTGRES_DB=PersonalEconomy
+    volumes:
+      - db-data:/var/lib/postgresql/data
 
   mongodb:
       image: 'mongo'
@@ -34,14 +32,15 @@ services:
       dockerfile: ./Dockerfile
     ports:
       - "3000:3000"
-    stdin_open: true
+    depends_on: 
+      - postgresql
     links:
-      - mysqldb
+      - postgresql
       - mongodb
-    tty: true
     volumes: 
       - .:/app 
 
 volumes: 
   db-config:
   db-data:
+  database:
